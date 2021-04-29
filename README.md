@@ -1,2 +1,2 @@
 # zelda_project
-Making a modified of Zelda with a game developing cours. 
+Making my own version of 1980s Zelda with help of a game developing cours. 
