@@ -24,7 +24,7 @@ import com.LelakGames.world.World;
 
 public class Game extends Canvas implements Runnable,KeyListener{
 	
-	
+	//aaaaaaaaaaa testando git 
 	
 	
 
@@ -59,9 +59,9 @@ public class Game extends Canvas implements Runnable,KeyListener{
 		image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		enemies = new ArrayList<Enemy>();
-		spritesheet = new Spritesheet("/spritesheet3.png");
+		spritesheet = new Spritesheet("/res/spritesheet3.png");
 		player = new Player(0, 0, 16, 16,spritesheet.getSprite(32,0,16,16));
-		world = new World("/map.png");
+		world = new World("/res/map.png");
 		entities.add(player);
 	}
 	
