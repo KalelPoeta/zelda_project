@@ -4,6 +4,7 @@ import java.awt.Canvas;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -130,6 +131,9 @@ public class Game extends Canvas implements Runnable,KeyListener{
 		g.dispose();
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0,WIDTH*SCALE,HEIGHT*SCALE,null);
+		g.setFont(new Font ("arial", Font.BOLD, 25));
+		g.setColor(Color.magenta);
+		g.drawString("Ammo : " + player.ammo, 600, 20);
 		bs.show();
 	}
 
