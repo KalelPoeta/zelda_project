@@ -10,7 +10,7 @@ import com.LelakGames.world.World;
 
 public class Enemy  extends Entity{
 	
-	private double speed = 0.8; 
+	private double speed = 1; 
 	
 	private int maskx = 8, masky = 8, maskw= 10, maskh = 10;
 
@@ -58,11 +58,9 @@ public class Enemy  extends Entity{
 			//We are colliding 
 			if (Game.rand.nextInt(100) < 10) {
 			Game.player.life -= Game.rand.nextInt(3);
-			if(Game.player.life <= 0) {
-				//Game over
-				System.exit(1);
-			}
-			System.out.println("HP: "+Game.player.life);
+			Game.player.isDamaged = true;
+			
+			//System.out.println("HP: "+Game.player.life);
 			
 			}
 			

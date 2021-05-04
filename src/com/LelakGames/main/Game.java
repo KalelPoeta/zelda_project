@@ -62,8 +62,9 @@ public class Game extends Canvas implements Runnable,KeyListener{
 		enemies = new ArrayList<Enemy>();
 		spritesheet = new Spritesheet("/res/spritesheet3.png");
 		player = new Player(0, 0, 16, 16,spritesheet.getSprite(32,0,16,16));
-		world = new World("/res/map.png");
 		entities.add(player);
+		world = new World("/res/map.png");
+		
 	}
 	
 	public void initFrame() {
@@ -132,7 +133,7 @@ public class Game extends Canvas implements Runnable,KeyListener{
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0,WIDTH*SCALE,HEIGHT*SCALE,null);
 		g.setFont(new Font ("arial", Font.BOLD, 25));
-		g.setColor(Color.magenta);
+		g.setColor(Color.red);
 		g.drawString("Ammo : " + player.ammo, 600, 20);
 		bs.show();
 	}
