@@ -1,13 +1,14 @@
 package com.LelakGames.main;
 
 import java.awt.Canvas;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -16,19 +17,17 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import com.LelakGames.entities.AmmoShoot;
 import com.LelakGames.entities.Enemy;
 import com.LelakGames.entities.Entity;
 import com.LelakGames.entities.Player;
 import com.LelakGames.graphics.Spritesheet;
 import com.LelakGames.graphics.UI;
+import com.LelakGames.world.Camera;
 import com.LelakGames.world.World;
 
-public class Game extends Canvas implements Runnable,KeyListener{
+public class Game extends Canvas implements Runnable,KeyListener, MouseListener{
 	
-	//aaaaaaaaaaa testando git 
-	
-	
-
 	private static final long serialVersionUID = 1L;
 	public static JFrame frame;
 	private Thread thread;
@@ -39,6 +38,7 @@ public class Game extends Canvas implements Runnable,KeyListener{
 	
 	private BufferedImage image;
 	
+	public static List<AmmoShoot> ammos;
 	public static List<Entity> entities;
 	public static List <Enemy> enemies;
 	public static Spritesheet spritesheet;
@@ -53,6 +53,7 @@ public class Game extends Canvas implements Runnable,KeyListener{
 	public Game() {
 		rand = new Random();
 		addKeyListener(this);
+		addMouseListener(this);
 		setPreferredSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
 		initFrame();
 		//Initializing objects.
@@ -60,6 +61,7 @@ public class Game extends Canvas implements Runnable,KeyListener{
 		image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		enemies = new ArrayList<Enemy>();
+		ammos = new ArrayList<AmmoShoot>();
 		spritesheet = new Spritesheet("/res/spritesheet3.png");
 		player = new Player(0, 0, 16, 16,spritesheet.getSprite(32,0,16,16));
 		entities.add(player);
@@ -105,6 +107,10 @@ public class Game extends Canvas implements Runnable,KeyListener{
 			Entity e = entities.get(i);  
 			e.tick();
 		}
+		for(int i = 0; i < ammos.size(); i++) {
+			ammos.get(i).tick();
+		}
+		
 	}
 	
 		
@@ -126,6 +132,9 @@ public class Game extends Canvas implements Runnable,KeyListener{
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			e.render(g);
+		}
+		for(int i = 0; i < ammos.size(); i++) {
+			ammos.get(i).render(g);
 		}
 		ui.render(g);
 		/***/
@@ -192,6 +201,10 @@ public class Game extends Canvas implements Runnable,KeyListener{
 					e.getKeyCode() == KeyEvent.VK_S){
 				player.down = true;
 			}
+			if(e.getKeyCode() == KeyEvent.VK_SHIFT ||
+				e.getKeyCode() == KeyEvent.VK_X	) 
+			
+				player.shoot = true;
 		
 	}
 
@@ -212,6 +225,38 @@ public class Game extends Canvas implements Runnable,KeyListener{
 					e.getKeyCode() == KeyEvent.VK_S){
 				player.down = false;
 			}
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		player.mouseShoot = true;
+		player.mx = (e.getX() / 3) ;
+		player.my = (e.getY() / 3);
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	} 
 }
