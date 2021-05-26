@@ -18,7 +18,10 @@ public class Enemy  extends Entity{
 	
 	private BufferedImage[] sprites;
 	 
-	private int life = 1;
+	private int life = 2;
+	
+	private boolean isDamaged = false;
+	private int  damageFrames = 10, damageCurrent = 0;
 	
 	public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, null);
@@ -84,6 +87,14 @@ public class Enemy  extends Entity{
     			return;
     		}
     		
+    		if(isDamaged) {
+    			this.damageCurrent++;
+    			if(this.damageCurrent == this.damageFrames) {
+    				this.damageCurrent = 0;
+    				this.isDamaged = false;
+    			}
+    		}
+    		
 	
 	}
 	
@@ -95,6 +106,7 @@ public class Enemy  extends Entity{
 		for(int i = 0; i < Game.ammos.size(); i++) {
 			Entity e = Game.ammos.get(i);
 				if(Entity.isColidding(this, e)) {
+					isDamaged = true ;
 					life--;
 					Game.ammos.remove(i);
 					System.out.println("Hitting");
@@ -133,7 +145,10 @@ public class Enemy  extends Entity{
 	}
 	
 	public void render(Graphics g) {
+		if(!isDamaged)
 		g.drawImage(sprites[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+		else
+			g.drawImage(ENEMY_FEEDBACK, this.getX() - Camera.x, this.getY() - Camera.y, null);
 		
 		//g.setColor(Color.blue);
 		//g.fillRect(this.getX() + maskx- Camera.x, this.getY() + masky - Camera.y, maskw,maskh);
