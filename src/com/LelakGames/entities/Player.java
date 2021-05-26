@@ -13,9 +13,7 @@ public class Player  extends Entity{
 	
 	public boolean right = true, up, left, down;
 	private int right_dir = 0, left_dir = 1;
-	private int dirx = right_dir;
-	private int up_dir = 0, down_dir = 1;
-	private int diry = up_dir;
+	private int dir = right_dir;
 	public double speed = 1.4;
 	
 	private int frames = 0, maxFrames = 5, index = 0, maxIndex= 3;
@@ -45,6 +43,9 @@ public class Player  extends Entity{
 		
 		rightPlayer = new BufferedImage[4];
 		leftPlayer = new BufferedImage[4];
+		upPlayer =  new BufferedImage[4];
+		downPlayer = new BufferedImage[4];
+		
 		playerDamage = Game.spritesheet.getSprite(0, 16, 16, 16);
 		for(int i =0; i < 4; i++) {
 		rightPlayer[i] = Game.spritesheet.getSprite(32+(i*16), 0,16, 16);
@@ -52,6 +53,12 @@ public class Player  extends Entity{
 		
 		for(int i =0; i < 4; i++) {
 			leftPlayer[i] = Game.spritesheet.getSprite(32+(i*16), 16,16, 16);
+			}
+		for(int i =0; i < 4; i++) {
+			upPlayer[i] = Game.spritesheet.getSprite(32+(i*16), 48,16, 16);
+			}
+		for(int i =0; i < 4; i++) {
+			downPlayer[i] = Game.spritesheet.getSprite(32+(i*16), 32,16, 16);
 			}
 		
 		
@@ -61,12 +68,12 @@ public class Player  extends Entity{
 		moved = false;
 		if(right && World.isFree((int)(x+speed),this.getY())) {
 			moved = true; 
-			dirx = right_dir;
+			dir = right_dir;
 			x+=speed;
 		}
 		else if (left && World.isFree((int)(x-speed),this.getY())) {
 			moved = true; 
-			dirx = left_dir;
+			dir = left_dir;
 			x-=speed;
 		}
 		if(up && World.isFree(this.getX(),(int)(y-speed))) {
@@ -108,7 +115,7 @@ public class Player  extends Entity{
 			int dx = 0;
 			int px = 0;
 			int py = 6;
-			if( dirx == right_dir) {
+			if( dir == right_dir) {
 				px = 18;
 				 dx = 1;		
 			}else {
@@ -128,7 +135,7 @@ public class Player  extends Entity{
 			//Create bullet and shoot
 			int px = 0,  py = 6;
 			double angle = 0;
-			if( dirx == right_dir) {
+			if( dir == right_dir) {
 				px = 18;
 				angle =  Math.atan2(my - ( this.getY() + py - Camera.y), mx -  (this.getX() + px - Camera.x));		
 			}else {
@@ -213,26 +220,26 @@ public class Player  extends Entity{
 	
 	public void render(Graphics g) {
 		if(!isDamaged) {
-			if(dirx == right_dir) {
+			if(dir == right_dir) {
 				g.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				
 			if(weapon) {
 				// draw weapon to the right
 				g.drawImage(Entity.WEAPON_RIGHT,this.getX() + 8 - Camera.x,  this.getY() - Camera.y, null);
 			}
-			}else if(dirx == left_dir) {
+			}else if(dir == left_dir) {
 				g.drawImage(leftPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				
 				if(weapon) {
 					// draw weapon to the left
 					g.drawImage(Entity.WEAPON_LEFT,this.getX() - 8 - Camera.x,  this.getY() - Camera.y, null);
 				}
-			}/*if(diry == up_dir) {
+			} if(up) {
 				g.drawImage(upPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				
-			}else if (diry == down_dir) {
+			}else if (down) {
 				g.drawImage(downPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
-			}*/
+			}
 		}else {
 			g.drawImage(playerDamage, this.getX() - Camera.x, this.getY() - Camera.y, null);
 		}
