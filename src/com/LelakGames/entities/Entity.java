@@ -16,6 +16,8 @@ public class Entity {
 	public static BufferedImage ENEMY_FEEDBACK = Game.spritesheet.getSprite(144, 32, 16, 16);
 	public static BufferedImage WEAPON_RIGHT = Game.spritesheet.getSprite(128, 0,16, 16);
 	public static BufferedImage WEAPON_LEFT = Game.spritesheet.getSprite(144, 0,16, 16);
+	public static BufferedImage WEAPON_DAMAGE_RIGHT = Game.spritesheet.getSprite(0, 48,16, 16);
+	public static BufferedImage WEAPON_DAMAGE_LEFT = Game.spritesheet.getSprite(16, 48,16, 16);
 	
 	
 	protected double x;

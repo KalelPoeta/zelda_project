@@ -154,18 +154,21 @@ public class Player  extends Entity{
 		
 		if(life<= 0) {
 			//Game OVer
+			life = 0;
 			Game.gameState = "GAME_OVER";
 			
 			
 			}
 	
+		updateCamera();
 		
-		Camera.x = Camera.clamp (this.getX() - (Game.WIDTH/2), 0, World.WIDTH*16 - Game .WIDTH) ;
-		Camera.y = Camera.clamp (this.getY() - (Game.HEIGHT/2), 0, World.HEIGHT*16 - Game.HEIGHT) ;
 		}
 		
      
-
+	public void updateCamera() {
+		Camera.x = Camera.clamp (this.getX() - (Game.WIDTH/2), 0, World.WIDTH*16 - Game .WIDTH) ;
+		Camera.y = Camera.clamp (this.getY() - (Game.HEIGHT/2), 0, World.HEIGHT*16 - Game.HEIGHT) ;
+	}
         
 	public void checkCollisionWeapon(){
 		for(int i = 0; i < Game.entities.size(); i++) {
@@ -238,6 +241,14 @@ public class Player  extends Entity{
 			}
 		}else {
 			g.drawImage(playerDamage, this.getX() - Camera.x, this.getY() - Camera.y, null);
+			if(weapon) {
+				if(dir == left_dir) {
+					g.drawImage(Entity.WEAPON_DAMAGE_LEFT,this.getX() - 8 - Camera.x,  this.getY() - Camera.y, null);
+					
+				}else {
+					g.drawImage(Entity.WEAPON_DAMAGE_RIGHT,this.getX() + 8 - Camera.x,  this.getY() - Camera.y, null);
+				}
+			}
 		}
 	
 	}
