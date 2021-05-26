@@ -35,7 +35,8 @@ public class Game extends Canvas implements Runnable,KeyListener, MouseListener{
 	public static final int WIDTH = 240;
 	public static final int HEIGHT = 160;
 	private final int SCALE = 3;
-	
+	 
+	private int CUR_LEVEL = 1, MAX_LEVEL = 2;
 	private BufferedImage image;
 	
 	public static List<AmmoShoot> ammos;
@@ -65,7 +66,7 @@ public class Game extends Canvas implements Runnable,KeyListener, MouseListener{
 		spritesheet = new Spritesheet("/res/spritesheet3.png");
 		player = new Player(0, 0, 16, 16,spritesheet.getSprite(32,0,16,16));
 		entities.add(player);
-		world = new World("/res/map.png");
+		world = new World("/res/level1.png");
 		
 	}
 	
@@ -106,9 +107,23 @@ public class Game extends Canvas implements Runnable,KeyListener, MouseListener{
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);  
 			e.tick();
+			
 		}
+		
 		for(int i = 0; i < ammos.size(); i++) {
 			ammos.get(i).tick();
+		}
+		
+		if(enemies.size() == 0) {
+			//Going to the next level
+			CUR_LEVEL ++;
+			if(CUR_LEVEL > MAX_LEVEL) {
+				CUR_LEVEL = 1;
+			}
+			String newWorld = "level" + CUR_LEVEL + ".png";
+			World.restartGame(newWorld);
+			
+			
 		}
 		
 	}

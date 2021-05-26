@@ -99,6 +99,7 @@ public class Enemy  extends Entity{
 	}
 	
 	public void selfDestroy() {
+		Game.enemies.remove(this);
 		Game.entities.remove(this);
 	}
 	

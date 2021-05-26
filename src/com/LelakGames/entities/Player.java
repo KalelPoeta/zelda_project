@@ -11,7 +11,7 @@ import com.LelakGames.world.World;
 
 public class Player  extends Entity{
 	
-	public boolean right = true, up, left, down;
+	public boolean right = false, up, left, down;
 	private int right_dir = 0, left_dir = 1;
 	private int dir = right_dir;
 	public double speed = 1.4;
@@ -153,14 +153,12 @@ public class Player  extends Entity{
 		}
 		
 		if(life<= 0) {
-			Game.entities.clear();
-			Game.enemies.clear();
-			Game.enemies = new ArrayList<Enemy>();
-			Game.spritesheet = new Spritesheet("/res/spritesheet3.png");
-			Game.player = new Player(0, 0, 16, 16,Game.spritesheet.getSprite(32,0,16,16));
-			Game.entities.add(Game.player);
-			Game.world = new World("/res/map.png");
-			return;
+			
+			/*
+			 Game over
+			 */
+			
+			
 			}
 	
 		
