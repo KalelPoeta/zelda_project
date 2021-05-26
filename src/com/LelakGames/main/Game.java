@@ -143,7 +143,7 @@ public class Game extends Canvas implements Runnable,KeyListener, MouseListener{
 		g.drawImage(image, 0, 0,WIDTH*SCALE,HEIGHT*SCALE,null);
 		g.setFont(new Font ("arial", Font.BOLD, 25));
 		g.setColor(Color.red);
-		g.drawString("Ammo : " + player.ammo, 600, 20);
+		g.drawString("Ammo : " + player.ammo, 580, 20);
 		bs.show();
 	}
 

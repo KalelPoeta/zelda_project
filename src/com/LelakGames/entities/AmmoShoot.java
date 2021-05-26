@@ -13,7 +13,7 @@ public class AmmoShoot extends Entity {
 	private double dy;
 	private double spd = 4;
 	
-	private int life = 20, curLife = 0;
+	private int life = 30, curLife = 0;
 	
 	
 		public AmmoShoot(int x, int y, int width, int height, BufferedImage sprite, double dx, double dy) {
@@ -36,7 +36,7 @@ public class AmmoShoot extends Entity {
 	}
 	
 	public void render(Graphics g){
-		g.setColor(Color.yellow);
+		g.setColor(Color.red);
 		g.fillOval(this.getX() - Camera.x, this.getY() - Camera.y, width, height);
 		
 	}

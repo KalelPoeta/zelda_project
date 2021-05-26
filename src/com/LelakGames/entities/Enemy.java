@@ -17,6 +17,8 @@ public class Enemy  extends Entity{
 	private int frames = 0, maxFrames = 10, index = 0, maxIndex = 2;
 	
 	private BufferedImage[] sprites;
+	 
+	private int life = 1;
 	
 	public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, null);
@@ -74,7 +76,35 @@ public class Enemy  extends Entity{
     				if(index > maxIndex)
     					index = 0;
     			}
+    			
+    		collidingAmmo();
+    			
+    		if(life <= 0) {
+    			selfDestroy();
+    			return;
     		}
+    		
+	
+	}
+	
+	public void selfDestroy() {
+		Game.entities.remove(this);
+	}
+	
+	public void collidingAmmo() {
+		for(int i = 0; i < Game.ammos.size(); i++) {
+			Entity e = Game.ammos.get(i);
+				if(Entity.isColidding(this, e)) {
+					life--;
+					Game.ammos.remove(i);
+					System.out.println("Hitting");
+					return;
+				}
+				
+			
+		}
+	
+	}
 	
 	public boolean isColiddingWithPlayer() {
 		Rectangle enemyCurrent = new Rectangle(this.getX() + maskx, this.getY() + masky,maskw, maskh);
