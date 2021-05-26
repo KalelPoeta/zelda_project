@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -50,6 +51,11 @@ public class Game extends Canvas implements Runnable,KeyListener, MouseListener{
 	public static Random rand;
 	
 	public UI ui;
+	
+	public static String gameState = "GAME_OVER";
+	private boolean showMessageGameOver = true;
+	private int framesGameOver = 0;
+	private boolean restartGame = false;
 	
 	public Game() {
 		rand = new Random();
@@ -104,6 +110,8 @@ public class Game extends Canvas implements Runnable,KeyListener, MouseListener{
 	}
 	
 	public void tick() {
+		if(gameState == "NORMAL") {
+			this.restartGame = false;
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);  
 			e.tick();
@@ -122,8 +130,26 @@ public class Game extends Canvas implements Runnable,KeyListener, MouseListener{
 			}
 			String newWorld = "level" + CUR_LEVEL + ".png";
 			World.restartGame(newWorld);
+					
+		}
+		}else if(gameState == "GAME_OVER") {
+			this.framesGameOver ++;
+			if(this.framesGameOver == 50) {
+				this.framesGameOver = 0;
+				if(this.showMessageGameOver)
+					this.showMessageGameOver = false;
+				else
+					this.showMessageGameOver = true;
+			}
 			
-			
+			if(restartGame){
+				this.restartGame = false;
+				this.gameState = "NORMAL";
+				CUR_LEVEL = 1;
+				String newWorld = "level" + CUR_LEVEL + ".png";
+				World.restartGame(newWorld);
+				
+			}
 		}
 		
 	}
@@ -159,6 +185,17 @@ public class Game extends Canvas implements Runnable,KeyListener, MouseListener{
 		g.setFont(new Font ("arial", Font.BOLD, 25));
 		g.setColor(Color.red);
 		g.drawString("Ammo : " + player.ammo, 580, 20);
+		if(gameState == "GAME_OVER") {
+			Graphics2D g2 = (Graphics2D)g;
+			g2.setColor(new Color (0,0,0,200));
+			g2.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
+			g.setFont(new Font ("arial", Font.BOLD, 50));
+			g.setColor(Color.red);
+			g.drawString("Game Over",(WIDTH*SCALE)/2 - 120, (HEIGHT*SCALE)/2 + 20 );
+			g.setFont(new Font ("arial", Font.BOLD, 30));
+			if(showMessageGameOver)
+				g.drawString("Press 'Enter' to continue",(WIDTH*SCALE)/2 - 150, (HEIGHT*SCALE)/2 + 70);
+		}
 		bs.show();
 	}
 
@@ -182,7 +219,7 @@ public class Game extends Canvas implements Runnable,KeyListener, MouseListener{
 				delta--;
 			}
 			if(System.currentTimeMillis() - timer >= 1000) {
-				System.out.println("FPS: "+ frames);
+				//System.out.println("FPS: "+ frames);
 				frames = 0;
 				timer+=1000;
 			}
@@ -217,10 +254,12 @@ public class Game extends Canvas implements Runnable,KeyListener, MouseListener{
 				player.down = true;
 			}
 			if(e.getKeyCode() == KeyEvent.VK_SHIFT ||
-				e.getKeyCode() == KeyEvent.VK_X	) 
-			
-				player.shoot = true;
-		
+				e.getKeyCode() == KeyEvent.VK_X	) {
+			player.shoot = true;
+		}
+			if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+				this.restartGame = true;
+			}
 	}
 
 	@Override

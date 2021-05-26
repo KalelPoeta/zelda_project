@@ -110,7 +110,7 @@ public class Enemy  extends Entity{
 					isDamaged = true ;
 					life--;
 					Game.ammos.remove(i);
-					System.out.println("Hitting");
+					System.out.println("Hit!");
 					return;
 				}
 				
