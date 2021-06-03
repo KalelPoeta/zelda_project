@@ -81,7 +81,7 @@ public class Game extends Canvas implements Runnable,KeyListener, MouseListener{
 	}
 	
 	public void initFrame() {
-		frame= new JFrame("My 1st Game");
+		frame= new JFrame("The Legend of Münchi");
 		frame.add(this);
 		frame.setResizable(false);
 		frame.pack();
@@ -291,6 +291,10 @@ public class Game extends Canvas implements Runnable,KeyListener, MouseListener{
 				gameState = "MENU";
 				menu.pause = true;
 			}
+			/*if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+				player.space = true;
+			}
+			*/
 	}
 
 	@Override
