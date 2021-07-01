@@ -18,6 +18,7 @@ public class Player  extends Entity{
 	
 	private int frames = 0, maxFrames = 5, index = 0, maxIndex= 3;
 	private boolean moved = false;
+	public boolean space = false;
 	private BufferedImage[] rightPlayer;
 	private BufferedImage[] leftPlayer;
 	private BufferedImage[] upPlayer;
@@ -84,7 +85,28 @@ public class Player  extends Entity{
 			y+=speed;
 			
 		}
-		
+		/*else if (space = true) {
+		if(right && World.isFree((int)(x+(speed*2)),this.getY())) {
+			moved = true; 
+			dir = right_dir;
+			x+=(speed*2);
+		}
+		else if (left && World.isFree((int)(x-(speed*2)),this.getY())) {
+			moved = true;
+			dir = left_dir;
+			x-=(speed*2);
+		}
+		if(up && World.isFree(this.getX(),(int)(y-(speed*2)))) {
+			moved = true; 
+			y-=(speed*2);
+			}
+		else if (down && World.isFree(this.getX(),(int)(y+(speed*2)))) {
+			moved = true;
+			y+=(speed*2);
+			
+		}
+		}
+		*/
 		if( moved ) { 
 			frames ++;
 			if (frames == maxFrames) {

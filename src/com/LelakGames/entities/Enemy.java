@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.LelakGames.main.Game;
+import com.LelakGames.main.Sound;
 import com.LelakGames.world.Camera;
 import com.LelakGames.world.World;
 
@@ -62,6 +63,7 @@ public class Enemy  extends Entity{
 		} else {
 			//We are colliding 
 			if (Game.rand.nextInt(100) < 10) {
+			//sound.Effect.play();
 			Game.player.life -= Game.rand.nextInt(3);
 			Game.player.isDamaged = true;
 			
